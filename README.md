@@ -155,7 +155,7 @@ npm run dev
 
 ## Deployment
 
-You can deploy this project by opening using VERCEL.
+You can deploy this project by using VERCEL.
 
 1. Create a Vercel Account (https://vercel.com/)
 2. Connect your Github Account to your Vercel Account
