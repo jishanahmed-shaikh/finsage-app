@@ -136,14 +136,14 @@ Requirements:
 
 ```sh
 # Step 1: Clone the Github Repo / Download the Code Base via Google Drive Base
-git clone <YOUR_GIT_URL> 
+git clone https://github.com/jishanahmed-shaikh/finsage-app.git 
 
 or 
 
 Download the Zip File ("finsage.zip") from this Folder: (https://drive.google.com/drive/folders/1rPiIz7SaYzy3eC41aFhneTLAabtYXIHj?usp=drive_link)
 
 # Step 2: Navigate to the project directory
-cd finSage
+cd finSage-app
 
 # Step 3: Install dependencies
 npm i
