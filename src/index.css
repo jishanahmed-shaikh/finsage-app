@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 215 85% 60%;
+    --primary-foreground: 210 40% 98%;
+    --primary-50: 215 100% 97%;
+    --primary-100: 215 100% 92%;
+    --primary-200: 215 95% 85%;
+    --primary-300: 215 90% 70%;
+    --primary-400: 215 85% 65%;
+    --primary-500: 215 85% 60%;
+    --primary-600: 215 85% 50%;
+    --primary-700: 215 85% 40%;
+    --primary-800: 215 85% 25%;
+    --primary-900: 215 85% 20%;
+
+    --secondary: 200 20% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 170 75% 41%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 32% 92%;
+    --input: 215 32% 92%;
+    --ring: 222 84% 70%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5% 26%;
+    --sidebar-primary: 240 6% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217 91% 60%;
+  }
+
+  * {
+    @apply border-border selection:bg-primary/10 selection:text-primary-800;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    @apply scroll-smooth overflow-x-hidden text-[14px] md:text-[16px];
+  }
+  
+  ::selection {
+    @apply bg-primary-100 text-primary-800;
+  }
+
+  input, textarea, button {
+    @apply focus:outline-none;
+  }
+
+  /* Improve touch targets on mobile */
+  @media (max-width: 640px) {
+    button, a, [role="button"] {
+      @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+    }
+
+    input[type="checkbox"], input[type="radio"] {
+      @apply min-h-[24px] min-w-[24px];
+    }
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-lg border border-white/50 shadow-sm;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-br from-primary-700 via-primary-500 to-accent bg-clip-text text-transparent;
+  }
+  
+  .heading-xl {
+    @apply font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tight text-balance;
+  }
+  
+  .heading-lg {
+    @apply font-bold text-2xl md:text-3xl lg:text-4xl tracking-tight text-balance;
+  }
+  
+  .heading-md {
+    @apply font-bold text-xl md:text-2xl lg:text-3xl tracking-tight text-balance;
+  }
+  
+  .heading-sm {
+    @apply font-semibold text-lg md:text-xl lg:text-2xl tracking-tight text-balance;
+  }
+  
+  .hover-card-animation {
+    @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+  }
+
+  .button-animation {
+    @apply transition-all duration-300 active:scale-95;
+  }
+
+  .content-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-24;
+  }
+
+  /* Mobile-friendly adjustments */
+  @media (max-width: 640px) {
+    .content-container {
+      @apply px-4;
+    }
+    
+    .section-padding {
+      @apply py-8 md:py-12;
+    }
+  }
+
+  /* Blog specific styles */
+  .prose {
+    @apply text-foreground;
+  }
+  
+  .prose p {
+    @apply my-4 leading-relaxed;
+  }
+  
+  .prose .lead {
+    @apply text-lg md:text-xl text-muted-foreground font-normal mb-8 leading-relaxed;
+  }
+  
+  .prose h2 {
+    @apply text-2xl md:text-3xl font-bold mt-10 mb-4;
+  }
+  
+  .prose h3 {
+    @apply text-xl md:text-2xl font-semibold mt-8 mb-3;
+  }
+  
+  .prose ul, .prose ol {
+    @apply my-4 pl-6;
+  }
+  
+  .prose ul {
+    @apply list-disc;
+  }
+  
+  .prose ol {
+    @apply list-decimal;
+  }
+  
+  .prose li {
+    @apply my-2;
+  }
+  
+  .prose a {
+    @apply text-primary-600 hover:text-primary-700 transition-colors underline;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-primary-200 pl-4 py-1 my-6 italic text-muted-foreground;
+  }
+}
+
+@layer utilities {
+  .clip-path-slant {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  }
+  
+  .clip-path-wave {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 75% 95%, 50% 91%, 25% 95%, 0 91%);
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .mobile-touch-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+}
