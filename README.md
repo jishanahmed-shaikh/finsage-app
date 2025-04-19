@@ -22,12 +22,14 @@ Key features include:
 - Complete overview of asset allocation and diversification
 - Performance tracking with interactive metrics and visualizations
 - Risk assessment and portfolio health indicators
+- <img width="971" alt="dashboard" src="https://github.com/user-attachments/assets/dbca6a8c-c2ee-422c-b5b1-52c878d4288d" />
 
 ### Stock Performance Analytics
 
 - Real-time data visualization with interactive charts
 - Technical indicators and fundamental analysis
 - Comparison tools for evaluating different investment options
+- <img width="992" alt="8" src="https://github.com/user-attachments/assets/f7bbda1e-61a1-4cef-938d-47b8e10090a0" />
 
 ### AI Financial Assistant
 
@@ -35,12 +37,15 @@ Key features include:
 - Personalized investment advice based on user's portfolio
 - Explanations of complex financial concepts in simple language
 - Market insights and trend analysis
+- <img width="1275" alt="Chat" src="https://github.com/user-attachments/assets/def968f0-09a9-4566-947e-348cd2adc30a" />
 
 ### Financial Learning Hub
 
 - Educational resources tailored to knowledge level
 - Interactive tutorials and skill-building modules
 - Achievement tracking to gamify the learning experience
+- <img width="1036" alt="learn1" src="https://github.com/user-attachments/assets/dd645868-5cf1-43e9-9acd-f69917cb8721" />
+
 
 ### Returns Calculator
 
