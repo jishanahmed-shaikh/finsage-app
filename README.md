@@ -63,6 +63,8 @@ FinSage leverages a modern technology stack designed for performance, scalabilit
 - **Vite**: Enables extremely fast build times and development experience
 - **Tailwind CSS**: Implements a responsive design system that works across device sizes
 - **shadcn/ui**: Ensures consistent, accessible UI components throughout the application
+- ![techstack](https://github.com/user-attachments/assets/a3ad80f9-c26f-4376-ada3-1a590753a719)
+
 
 ### Backend Architecture
 
@@ -72,6 +74,7 @@ FinSage leverages a modern technology stack designed for performance, scalabilit
 
 - **Recharts**: Creates interactive, responsive financial charts and graphs
 - Optimized visualizations for both desktop and mobile viewing
+- <img width="977" alt="datavisualization" src="https://github.com/user-attachments/assets/d5f29243-ac92-4c43-9bfe-e0a52fc6f512" />
 
 ### State Management and Data Fetching
 
@@ -157,6 +160,7 @@ npm run dev
 - shadcn-ui
 - Tailwind CSS
 - React Query
+- ![techstack](https://github.com/user-attachments/assets/1e280bb9-4e0e-4565-8da2-2be929f061dd)
 
 ## Deployment
 
