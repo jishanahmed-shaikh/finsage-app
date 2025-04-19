@@ -63,6 +63,7 @@ FinSage leverages a modern technology stack designed for performance, scalabilit
 - **Vite**: Enables extremely fast build times and development experience
 - **Tailwind CSS**: Implements a responsive design system that works across device sizes
 - **shadcn/ui**: Ensures consistent, accessible UI components throughout the application
+- **React Query**
 - ![techstack](https://github.com/user-attachments/assets/a3ad80f9-c26f-4376-ada3-1a590753a719)
 
 
@@ -151,16 +152,6 @@ npm i
 # Step 4: Start the development server
 npm run dev
 ```
-
-### Technologies Used
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-- React Query
-- ![techstack](https://github.com/user-attachments/assets/1e280bb9-4e0e-4565-8da2-2be929f061dd)
 
 ## Deployment
 
