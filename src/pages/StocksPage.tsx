@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,7 +17,11 @@ import { toast } from "sonner";
 import StockDetailCard from "@/components/stocks/StockDetailCard";
 import CompareStocks from "@/components/stocks/CompareStocks";
 import AddToPortfolio from "@/components/stocks/AddToPortfolio";
+import TradingViewChart from "@/components/stocks/TradingViewChart";
+import TradingViewTickerTape from "@/components/stocks/TradingViewTickerTape";
+import { useStockData, useStockDetail, useStockPriceHistory } from "@/hooks/use-stock-data";
 
+// Keep the historical data for charts (this would be replaced with real API data in a production app)
 const stockPriceData = [
   { date: "Jan", AAPL: 175.84, GOOGL: 141.32, MSFT: 385.56, AMZN: 154.62 },
   { date: "Feb", AAPL: 182.52, GOOGL: 144.45, MSFT: 391.23, AMZN: 162.08 },
@@ -30,121 +33,6 @@ const stockPriceData = [
   { date: "Aug", AAPL: 195.46, GOOGL: 158.76, MSFT: 419.23, AMZN: 181.45 },
   { date: "Sep", AAPL: 205.78, GOOGL: 164.23, MSFT: 428.56, AMZN: 188.76 },
   { date: "Oct", AAPL: 213.67, GOOGL: 168.45, MSFT: 435.12, AMZN: 194.32 },
-];
-
-const trendingStocks = [
-  { 
-    symbol: "AAPL", 
-    name: "Apple Inc.", 
-    price: 213.67, 
-    change: 7.89, 
-    changePercent: 3.83, 
-    industry: "Technology",
-    marketCap: "3.38T",
-    pe: 32.4,
-    dividendYield: 0.5,
-    fiftyTwoWeekHigh: 234.43,
-    fiftyTwoWeekLow: 164.52,
-    avgVolume: 23145698
-  },
-  { 
-    symbol: "MSFT", 
-    name: "Microsoft Corporation", 
-    price: 435.12, 
-    change: 6.56, 
-    changePercent: 1.53, 
-    industry: "Technology",
-    marketCap: "3.24T",
-    pe: 38.7,
-    dividendYield: 0.7,
-    fiftyTwoWeekHigh: 452.90,
-    fiftyTwoWeekLow: 375.40,
-    avgVolume: 18456321
-  },
-  { 
-    symbol: "GOOGL", 
-    name: "Alphabet Inc.", 
-    price: 168.45, 
-    change: 4.22, 
-    changePercent: 2.57, 
-    industry: "Technology",
-    marketCap: "2.13T",
-    pe: 25.3,
-    dividendYield: 0.0,
-    fiftyTwoWeekHigh: 178.32,
-    fiftyTwoWeekLow: 120.21,
-    avgVolume: 12567890
-  },
-  { 
-    symbol: "AMZN", 
-    name: "Amazon.com Inc.", 
-    price: 194.32, 
-    change: 5.56, 
-    changePercent: 2.94, 
-    industry: "Consumer Cyclical",
-    marketCap: "2.02T",
-    pe: 60.4,
-    dividendYield: 0.0,
-    fiftyTwoWeekHigh: 205.45,
-    fiftyTwoWeekLow: 148.78,
-    avgVolume: 15234987
-  },
-  { 
-    symbol: "TSLA", 
-    name: "Tesla Inc.", 
-    price: 227.22, 
-    change: -3.45, 
-    changePercent: -1.50, 
-    industry: "Automotive",
-    marketCap: "721.76B",
-    pe: 55.8,
-    dividendYield: 0.0,
-    fiftyTwoWeekHigh: 278.98,
-    fiftyTwoWeekLow: 138.76,
-    avgVolume: 20987456
-  },
-  { 
-    symbol: "NVDA", 
-    name: "NVIDIA Corporation", 
-    price: 124.06, 
-    change: 2.18, 
-    changePercent: 1.79, 
-    industry: "Technology",
-    marketCap: "1.53T",
-    pe: 72.5,
-    dividendYield: 0.1,
-    fiftyTwoWeekHigh: 140.24,
-    fiftyTwoWeekLow: 85.32,
-    avgVolume: 17865432
-  },
-  { 
-    symbol: "META", 
-    name: "Meta Platforms Inc.", 
-    price: 483.15, 
-    change: -4.32, 
-    changePercent: -0.89, 
-    industry: "Technology",
-    marketCap: "1.24T",
-    pe: 28.4,
-    dividendYield: 0.0,
-    fiftyTwoWeekHigh: 523.45,
-    fiftyTwoWeekLow: 350.87,
-    avgVolume: 16543210
-  },
-  { 
-    symbol: "BRK.A", 
-    name: "Berkshire Hathaway Inc.", 
-    price: 588423.0, 
-    change: 1234.0, 
-    changePercent: 0.21, 
-    industry: "Financial Services",
-    marketCap: "860.42B",
-    pe: 10.2,
-    dividendYield: 0.0,
-    fiftyTwoWeekHigh: 600120.0,
-    fiftyTwoWeekLow: 520450.0,
-    avgVolume: 6543210
-  },
 ];
 
 const volumeData = [
@@ -166,16 +54,26 @@ const comparisonData = [
   { date: "2024-Q1", AAPL: 20.3, MSFT: 27.6, GOOGL: 16.8, AMZN: 16.2 },
 ];
 
-const watchlistStocks = ["AAPL", "MSFT", "GOOGL"];
+const defaultWatchlist = ["AAPL", "MSFT", "GOOGL"];
 
 const StocksPage = () => {
+  // Use our custom hooks for real-time stock data
+  const { stocks: trendingStocks, loading, error } = useStockData();
+  
   const [selectedStock, setSelectedStock] = useState("AAPL");
   const [searchTerm, setSearchTerm] = useState("");
   const [timeRange, setTimeRange] = useState("1M");
   const [showCompare, setShowCompare] = useState(false);
-  const [watchlist, setWatchlist] = useState(watchlistStocks);
+  const [watchlist, setWatchlist] = useState(defaultWatchlist);
   const [filterIndustry, setFilterIndustry] = useState("All");
   const [showPositiveOnly, setShowPositiveOnly] = useState(false);
+  const [showTradingView, setShowTradingView] = useState(true);
+
+  // Get details for the selected stock
+  const { stock: selectedStockDetails } = useStockDetail(selectedStock);
+  
+  // Get historical price data based on the selected time range
+  const { priceData, loading: historyLoading } = useStockPriceHistory(selectedStock, timeRange);
 
   const filteredStocks = trendingStocks.filter(stock => {
     // Filter by search term
@@ -192,6 +90,7 @@ const StocksPage = () => {
     return matchesSearch && matchesIndustry && matchesPerformance;
   });
 
+  // Get unique list of industries from the stock data
   const industries = ["All", ...Array.from(new Set(trendingStocks.map(stock => stock.industry)))];
 
   const toggleWatchlist = (symbol: string) => {
@@ -206,19 +105,48 @@ const StocksPage = () => {
 
   const handleStockClick = (symbol: string) => {
     setSelectedStock(symbol);
-    // Simulate fetching stock details
-    setTimeout(() => {
-      toast.info(`${symbol} data updated`);
-    }, 300);
+    toast.info(`${symbol} data updated`);
   };
 
   const handleExportData = () => {
+    // In a real app, this would export data to CSV or similar
     toast.success("Stock data exported successfully");
   };
 
   const handleSetAlert = (stock: string) => {
+    // In a real app, this would set up price alerts
     toast.success(`Price alert set for ${stock}`);
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-lg">Loading stock data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-center">
+          <div className="text-red-500 mb-4">⚠️</div>
+          <p className="text-lg">Error loading stock data: {error}</p>
+          <Button 
+            className="mt-4"
+            onClick={() => window.location.reload()}
+          >
+            Try Again
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -247,6 +175,11 @@ const StocksPage = () => {
           </div>
         </div>
       </header>
+      
+      {/* Trading View Ticker Tape */}
+      <div className="w-full py-1 border-b">
+        <TradingViewTickerTape />
+      </div>
       
       {/* Main Content */}
       <main className="flex-1 p-4 md:p-6">
@@ -298,6 +231,14 @@ const StocksPage = () => {
                         onCheckedChange={setShowPositiveOnly}
                       />
                       <Label htmlFor="positive-change">Show positive performers only</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Switch 
+                        id="trading-view" 
+                        checked={showTradingView}
+                        onCheckedChange={setShowTradingView}
+                      />
+                      <Label htmlFor="trading-view">Use TradingView chart</Label>
                     </div>
                   </div>
                 </PopoverContent>
@@ -361,35 +302,51 @@ const StocksPage = () => {
             </CardHeader>
             <CardContent>
               <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart 
-                    data={stockPriceData} 
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    onClick={(data) => {
-                      if (data && data.activePayload) {
-                        const date = data.activePayload[0].payload.date;
-                        toast.info(`Selected data from ${date}`);
-                      }
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis domain={['auto', 'auto']} />
-                    <Tooltip 
-                      formatter={(value) => [`$${value}`, '']} 
-                      labelFormatter={(label) => `Date: ${label}`}
-                    />
-                    <Legend 
-                      onClick={(e) => {
-                        toast.info(`Toggled visibility of ${e.dataKey}`);
-                      }}
-                    />
-                    <Line type="monotone" dataKey="AAPL" stroke="#0088FE" strokeWidth={2} dot={false} activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="GOOGL" stroke="#00C49F" strokeWidth={2} dot={false} activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="MSFT" stroke="#FFBB28" strokeWidth={2} dot={false} activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="AMZN" stroke="#FF8042" strokeWidth={2} dot={false} activeDot={{ r: 8 }} />
-                  </LineChart>
-                </ResponsiveContainer>
+                {showTradingView ? (
+                  <TradingViewChart 
+                    symbol={selectedStock ? `NASDAQ:${selectedStock}` : 'NASDAQ:AAPL'} 
+                    container="tv-chart-container"
+                    height={320}
+                    timeframe={timeRange}
+                  />
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    {historyLoading ? (
+                      <div className="flex items-center justify-center h-full">
+                        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
+                      </div>
+                    ) : (
+                      <LineChart 
+                        data={priceData} 
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                        onClick={(data) => {
+                          if (data && data.activePayload) {
+                            const date = data.activePayload[0].payload.date;
+                            toast.info(`Selected data from ${date}`);
+                          }
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" />
+                        <YAxis domain={['auto', 'auto']} />
+                        <Tooltip 
+                          formatter={(value) => [`$${value}`, '']} 
+                          labelFormatter={(label) => `Date: ${label}`}
+                        />
+                        <Legend />
+                        <Line 
+                          type="monotone" 
+                          dataKey="close" 
+                          name={selectedStock} 
+                          stroke="#0088FE" 
+                          strokeWidth={2} 
+                          dot={false} 
+                          activeDot={{ r: 8 }} 
+                        />
+                      </LineChart>
+                    )}
+                  </ResponsiveContainer>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -449,25 +406,11 @@ const StocksPage = () => {
                             />
                           </Button>
                         </div>
-                        <div className="col-span-2">
-                          <div>{stock.name}</div>
-                          <div className="text-xs text-muted-foreground">{stock.industry}</div>
-                        </div>
+                        <div className="col-span-2 truncate">{stock.name}</div>
                         <div className="text-right font-medium">${stock.price.toLocaleString()}</div>
-                        <div className="text-right">
-                          <div className={stock.changePercent >= 0 ? "text-green-600" : "text-red-500"}>
-                            {stock.changePercent >= 0 ? (
-                              <span className="inline-flex items-center">
-                                <ArrowUp className="h-3 w-3 mr-0.5" />
-                                {stock.changePercent.toFixed(2)}%
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center">
-                                <ArrowDown className="h-3 w-3 mr-0.5" />
-                                {Math.abs(stock.changePercent).toFixed(2)}%
-                              </span>
-                            )}
-                          </div>
+                        <div className={`text-right flex items-center justify-end ${stock.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {stock.changePercent >= 0 ? <ArrowUp className="h-3 w-3 mr-0.5" /> : <ArrowDown className="h-3 w-3 mr-0.5" />}
+                          {Math.abs(stock.changePercent).toFixed(2)}%
                         </div>
                       </div>
                     ))}
@@ -479,144 +422,118 @@ const StocksPage = () => {
             {/* Stock Details */}
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <CardTitle>
-                        {selectedStock}
-                      </CardTitle>
-                      <Badge variant="outline" className="text-xs">
-                        {trendingStocks.find(s => s.symbol === selectedStock)?.industry || "Technology"}
-                      </Badge>
-                    </div>
-                    <CardDescription>
-                      {trendingStocks.find(s => s.symbol === selectedStock)?.name || "Apple Inc."}
-                    </CardDescription>
-                  </div>
-                  <div className={trendingStocks.find(s => s.symbol === selectedStock)?.changePercent >= 0 ? 
-                    "bg-green-50 text-green-700 px-2 py-1 rounded font-medium text-sm flex items-center" : 
-                    "bg-red-50 text-red-700 px-2 py-1 rounded font-medium text-sm flex items-center"
-                  }>
-                    {trendingStocks.find(s => s.symbol === selectedStock)?.changePercent >= 0 ? (
-                      <>
-                        <ArrowUp className="h-3 w-3 mr-1" />
-                        {trendingStocks.find(s => s.symbol === selectedStock)?.changePercent.toFixed(2)}%
-                      </>
-                    ) : (
-                      <>
-                        <ArrowDown className="h-3 w-3 mr-1" />
-                        {Math.abs(trendingStocks.find(s => s.symbol === selectedStock)?.changePercent || 0).toFixed(2)}%
-                      </>
-                    )}
-                  </div>
-                </div>
+                <CardTitle>Stock Details</CardTitle>
+                <CardDescription>Additional information and trading options</CardDescription>
               </CardHeader>
               <CardContent>
-                <StockDetailCard 
-                  stock={trendingStocks.find(s => s.symbol === selectedStock) || trendingStocks[0]} 
-                  onSetAlert={handleSetAlert}
-                  onAddToPortfolio={(stock) => {
-                    toast.success(`${stock} added to your portfolio`);
-                  }}
-                  onViewDetails={(stock) => {
-                    toast.info(`Viewing detailed analysis for ${stock}`);
-                  }}
-                  isInWatchlist={watchlist.includes(selectedStock)}
-                  onToggleWatchlist={toggleWatchlist}
-                />
+                {selectedStockDetails ? (
+                  <StockDetailCard 
+                    stock={selectedStockDetails} 
+                    onSetAlert={handleSetAlert}
+                    onAddToPortfolio={(symbol) => toast.success(`${symbol} added to portfolio`)}
+                    onViewDetails={(symbol) => toast.info(`Viewing details for ${symbol}`)}
+                    isInWatchlist={watchlist.includes(selectedStockDetails.symbol)}
+                    onToggleWatchlist={toggleWatchlist}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-40">
+                    <p className="text-muted-foreground">Select a stock to view details</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
           
-          {/* Market News Section */}
+          {/* Watchlist */}
           <div className="mb-6">
-            <MarketNews />
+            <h2 className="text-xl font-bold mb-4">Your Watchlist</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {watchlist.length === 0 ? (
+                <div className="col-span-full flex items-center justify-center p-8 border rounded-lg">
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-2">Your watchlist is empty</p>
+                    <Button variant="outline" size="sm" className="flex items-center gap-2">
+                      <Plus className="h-4 w-4" />
+                      Add stocks to watchlist
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                watchlist.map(symbol => {
+                  const stock = trendingStocks.find(s => s.symbol === symbol);
+                  
+                  if (!stock) {
+                    return null;
+                  }
+                  
+                  return (
+                    <Card key={symbol} className="overflow-hidden">
+                      <CardHeader className="p-4">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <CardTitle className="text-base">{stock.symbol}</CardTitle>
+                            <CardDescription className="text-xs truncate">{stock.name}</CardDescription>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-7 w-7 -mt-1" 
+                            onClick={() => toggleWatchlist(symbol)}
+                          >
+                            <Star className="h-4 w-4" fill="currentColor" />
+                          </Button>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <div className="mb-2">
+                          <div className="text-lg font-bold">${stock.price.toLocaleString()}</div>
+                          <div className={`text-sm flex items-center ${stock.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                            {stock.changePercent >= 0 ? <ArrowUp className="h-3 w-3 mr-0.5" /> : <ArrowDown className="h-3 w-3 mr-0.5" />}
+                            {Math.abs(stock.changePercent).toFixed(2)}%
+                          </div>
+                        </div>
+                        <div className="flex justify-between mt-4">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="text-xs"
+                            onClick={() => handleStockClick(symbol)}
+                          >
+                            View
+                          </Button>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button 
+                                variant="default" 
+                                size="sm"
+                                className="text-xs"
+                              >
+                                Add to Portfolio
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Add to Portfolio</DialogTitle>
+                              </DialogHeader>
+                              <AddToPortfolio 
+                                stock={stock} 
+                                onSubmit={() => toast.success(`${symbol} added to portfolio`)} 
+                              />
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })
+              )}
+            </div>
           </div>
           
-          {/* Additional Charts */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <div>
-                  <CardTitle>Trading Volume</CardTitle>
-                  <CardDescription>Daily trading volume comparison</CardDescription>
-                </div>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  className="h-8 w-8 p-0" 
-                  onClick={() => toast.info("Volume data can help identify market interest in a stock")}
-                >
-                  <Info className="h-4 w-4" />
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart 
-                      data={volumeData}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                      onClick={(data) => {
-                        if (data && data.activePayload) {
-                          const stock = data.activePayload[0].payload.name;
-                          toast.info(`${stock} volume: ${data.activePayload[0].payload.volume.toLocaleString()}`);
-                        }
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip formatter={(value) => [Number(value).toLocaleString(), 'Volume']} />
-                      <Bar dataKey="volume" fill="#8884d8" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <div>
-                  <CardTitle>Quarterly Performance</CardTitle>
-                  <CardDescription>Earnings per share (EPS) growth</CardDescription>
-                </div>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={() => toast.info("EPS data updated with latest quarterly results")}
-                  className="flex items-center gap-1"
-                >
-                  <Calendar className="h-4 w-4" />
-                  Quarterly
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart 
-                      data={comparisonData}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                      onClick={(data) => {
-                        if (data && data.activePayload) {
-                          const quarter = data.activePayload[0].payload.date;
-                          toast.info(`Selected data from ${quarter}`);
-                        }
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="date" />
-                      <YAxis />
-                      <Tooltip formatter={(value) => [`$${value}`, 'EPS']} />
-                      <Legend />
-                      <Area type="monotone" dataKey="AAPL" stackId="1" stroke="#0088FE" fill="#0088FE" fillOpacity={0.6} />
-                      <Area type="monotone" dataKey="MSFT" stackId="2" stroke="#00C49F" fill="#00C49F" fillOpacity={0.6} />
-                      <Area type="monotone" dataKey="GOOGL" stackId="3" stroke="#FFBB28" fill="#FFBB28" fillOpacity={0.6} />
-                      <Area type="monotone" dataKey="AMZN" stackId="4" stroke="#FF8042" fill="#FF8042" fillOpacity={0.6} />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Market News */}
+          <div className="mb-6">
+            <h2 className="text-xl font-bold mb-4">Market News</h2>
+            <MarketNews />
           </div>
         </div>
       </main>

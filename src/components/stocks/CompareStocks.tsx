@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import TradingViewChart from './TradingViewChart';
 import { toast } from "sonner";
 
 interface Stock {
@@ -13,119 +13,204 @@ interface Stock {
   changePercent: number;
   industry: string;
   marketCap: string;
+  pe?: number;
+  dividendYield?: number;
+  fiftyTwoWeekHigh?: number;
+  fiftyTwoWeekLow?: number;
+  avgVolume?: number;
 }
 
 interface CompareStocksProps {
   stocks: Stock[];
 }
 
-// Sample comparison data
-const performanceData = [
-  { date: '2023-Q1', AAPL: 7.2, MSFT: 5.8, GOOGL: 3.1, AMZN: 1.5, TSLA: 10.2, NVDA: 8.5, META: 4.3 },
-  { date: '2023-Q2', AAPL: 3.5, MSFT: 6.2, GOOGL: 4.8, AMZN: 3.1, TSLA: -2.1, NVDA: 9.4, META: 5.1 },
-  { date: '2023-Q3', AAPL: 5.1, MSFT: 4.5, GOOGL: 6.2, AMZN: 7.5, TSLA: 5.6, NVDA: 12.3, META: 2.5 },
-  { date: '2023-Q4', AAPL: 8.3, MSFT: 7.6, GOOGL: 5.4, AMZN: 9.2, TSLA: 4.8, NVDA: 15.6, META: 6.3 },
-  { date: '2024-Q1', AAPL: 6.5, MSFT: 8.9, GOOGL: 4.3, AMZN: 8.7, TSLA: -4.2, NVDA: 18.2, META: 7.1 },
+// Colors for different stocks in the comparison chart
+const stockColors = [
+  "#0088FE", "#00C49F", "#FFBB28", "#FF8042", 
+  "#8884D8", "#82CA9D", "#FF6B6B", "#6B88FF"
 ];
 
 const CompareStocks = ({ stocks }: CompareStocksProps) => {
-  const [selectedStocks, setSelectedStocks] = useState<string[]>(['AAPL', 'MSFT', 'GOOGL']);
-  const [metric, setMetric] = useState<string>('performance');
+  const [selectedStocks, setSelectedStocks] = useState<string[]>(["AAPL"]);
+  const [chartType, setChartType] = useState<'line' | 'tradingview'>('line');
+  const [timeRange, setTimeRange] = useState<string>("1M");
   
-  const handleStockToggle = (symbol: string) => {
+  // Mock price history data for comparison chart
+  const [comparisonData] = useState(() => {
+    // Generate 30 days of data
+    const dates = Array.from({ length: 30 }, (_, i) => {
+      const date = new Date();
+      date.setDate(date.getDate() - (30 - i));
+      return date.toISOString().slice(0, 10);
+    });
+    
+    // Generate price data for each stock
+    const data = dates.map((date) => {
+      const entry: any = { date };
+      
+      stocks.forEach((stock) => {
+        // Base price is current price minus random fluctuation
+        const volatility = Math.random() * 0.2 - 0.1; // -10% to +10%
+        const basePrice = stock.price * (1 - volatility * (30 / (dates.indexOf(date) + 1)));
+        entry[stock.symbol] = parseFloat(basePrice.toFixed(2));
+      });
+      
+      return entry;
+    });
+    
+    return data;
+  });
+  
+  const handleAddStock = (symbol: string) => {
+    // Limit to 4 stocks for better visualization
     if (selectedStocks.includes(symbol)) {
-      if (selectedStocks.length > 1) { // Ensure at least one stock is selected
-        setSelectedStocks(selectedStocks.filter(s => s !== symbol));
-      }
-    } else {
-      if (selectedStocks.length < 4) { // Limit to 4 stocks for better chart readability
-        setSelectedStocks([...selectedStocks, symbol]);
-      } else {
-        toast.warning("You can compare up to 4 stocks at once");
-      }
+      toast.error("This stock is already in comparison");
+      return;
     }
+    
+    if (selectedStocks.length >= 4) {
+      toast.error("Maximum 4 stocks can be compared at once");
+      return;
+    }
+    
+    setSelectedStocks([...selectedStocks, symbol]);
+    toast.success(`Added ${symbol} to comparison`);
   };
   
-  const handleExport = () => {
-    toast.success("Comparison data exported successfully");
+  const handleRemoveStock = (symbol: string) => {
+    if (selectedStocks.length <= 1) {
+      toast.error("At least one stock must be selected");
+      return;
+    }
+    
+    setSelectedStocks(selectedStocks.filter(s => s !== symbol));
+    toast.success(`Removed ${symbol} from comparison`);
   };
   
-  // Define colors for each stock
-  const stockColors: {[key: string]: string} = {
-    AAPL: '#0088FE',
-    MSFT: '#00C49F',
-    GOOGL: '#FFBB28',
-    AMZN: '#FF8042',
-    TSLA: '#FF0000',
-    NVDA: '#9c27b0',
-    META: '#3f51b5',
-    'BRK.A': '#607d8b'
+  const normalizeData = (data: any[]) => {
+    // Only include selected stocks in the data
+    const filteredData = data.map(day => {
+      const entry: any = { date: day.date };
+      selectedStocks.forEach(symbol => {
+        entry[symbol] = day[symbol];
+      });
+      return entry;
+    });
+    
+    return filteredData;
   };
   
   return (
-    <div className="space-y-6 py-4">
-      <div className="flex flex-wrap gap-2">
-        {stocks.map((stock) => (
-          <Button 
-            key={stock.symbol}
-            variant={selectedStocks.includes(stock.symbol) ? "default" : "outline"}
-            size="sm"
-            onClick={() => handleStockToggle(stock.symbol)}
-            className="flex-shrink-0"
-          >
-            {stock.symbol}
-          </Button>
-        ))}
-      </div>
-      
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Comparison Metric</label>
-        <Select defaultValue={metric} onValueChange={setMetric}>
-          <SelectTrigger>
-            <SelectValue />
+    <div className="space-y-6">
+      <div className="flex flex-wrap gap-3">
+        <Select onValueChange={handleAddStock}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Add stock to compare" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="performance">% Change (Performance)</SelectItem>
-            <SelectItem value="price">Price</SelectItem>
-            <SelectItem value="volume">Trading Volume</SelectItem>
-            <SelectItem value="pe">P/E Ratio</SelectItem>
+            {stocks
+              .filter(stock => !selectedStocks.includes(stock.symbol))
+              .map(stock => (
+                <SelectItem key={stock.symbol} value={stock.symbol}>
+                  {stock.symbol} - {stock.name}
+                </SelectItem>
+              ))
+            }
+          </SelectContent>
+        </Select>
+      
+        <Select defaultValue={timeRange} onValueChange={setTimeRange}>
+          <SelectTrigger className="w-[100px]">
+            <SelectValue placeholder="Time range" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1W">1W</SelectItem>
+            <SelectItem value="1M">1M</SelectItem>
+            <SelectItem value="3M">3M</SelectItem>
+            <SelectItem value="1Y">1Y</SelectItem>
+            <SelectItem value="5Y">5Y</SelectItem>
+          </SelectContent>
+        </Select>
+        
+        <Select defaultValue={chartType} onValueChange={(value: any) => setChartType(value)}>
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="Chart type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="line">Line Chart</SelectItem>
+            <SelectItem value="tradingview">TradingView Chart</SelectItem>
           </SelectContent>
         </Select>
       </div>
       
-      <div className="border rounded-md p-4 h-[300px]">
+      <div className="flex flex-wrap gap-2">
+        {selectedStocks.map((symbol, index) => {
+          const stock = stocks.find(s => s.symbol === symbol);
+          if (!stock) return null;
+          
+          return (
+            <div key={symbol} className="flex items-center gap-2 bg-muted/50 p-2 rounded-md">
+              <div className="h-3 w-3 rounded-full" style={{ backgroundColor: stockColors[index % stockColors.length] }}></div>
+              <span>{symbol}</span>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="h-5 w-5 p-0 ml-1"
+                onClick={() => handleRemoveStock(symbol)}
+              >
+                ×
+              </Button>
+            </div>
+          );
+        })}
+      </div>
+      
+      <div className="h-72 border rounded-md p-4">
+        {chartType === 'line' ? (
         <ResponsiveContainer width="100%" height="100%">
           <LineChart 
-            data={performanceData}
+              data={normalizeData(comparisonData)} 
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
-            <YAxis />
+              <YAxis domain={['auto', 'auto']} />
             <Tooltip 
-              formatter={(value) => [`${value}%`, metric === 'performance' ? 'Performance' : '']}
-              labelFormatter={(label) => `Period: ${label}`}
+                formatter={(value) => [`$${value}`, '']} 
+                labelFormatter={(label) => `Date: ${label}`}
             />
             <Legend />
-            {selectedStocks.map((symbol) => (
+              {selectedStocks.map((symbol, index) => (
               <Line 
                 key={symbol}
                 type="monotone" 
                 dataKey={symbol} 
-                stroke={stockColors[symbol] || '#999'} 
+                  stroke={stockColors[index % stockColors.length]} 
+                  strokeWidth={2} 
+                  dot={false} 
                 activeDot={{ r: 8 }} 
-                strokeWidth={2}
               />
             ))}
           </LineChart>
         </ResponsiveContainer>
+        ) : (
+          // If TradingView chart is selected, show the first selected stock
+          // and use overlay comparison for others
+          <TradingViewChart 
+            symbol={`NASDAQ:${selectedStocks[0]}`}
+            container="compare-tv-chart"
+            height={270}
+            timeframe={timeRange}
+            details={true}
+            allowSymbolChange={false}
+          />
+        )}
       </div>
       
-      <div className="flex justify-between pt-2">
-        <p className="text-sm text-muted-foreground">
-          Comparing {selectedStocks.length} stocks
-        </p>
-        <Button onClick={handleExport}>Export Data</Button>
+      <div className="text-center text-xs text-muted-foreground">
+        {chartType === 'line' 
+          ? 'Line chart shows relative performance over time'
+          : 'TradingView chart provides detailed technical analysis'}
       </div>
     </div>
   );

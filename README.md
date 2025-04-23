@@ -174,5 +174,63 @@ You can deploy this project by using VERCEL.
 ## IMPORTANT NOTE
 
 - **We at FinSage are Still working on making it a Full-Stack Product by working on a Robust and Scalable Backend**
-- **FinSage is Still not integrated into Real-Time Data ECOSYSTEM and it is based only OFF "MOCK DATA"**
-- **We are Actively looking for funding for the Project to integrate it into a Realtime Ecosystem with Complete Live Data and Scalable Backend**
+- **FinSage has been integrated with the Finnhub API to provide real-time stock data**
+- **To use the app with real-time data, you'll need to set up your own Finnhub API key as described in the setup instructions below**
+
+## Setup
+
+1. Clone this repository
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Create a `.env.local` file in the root directory with your Finnhub API key:
+   ```
+   VITE_FINNHUB_API_KEY=your_finnhub_api_key
+   ```
+   
+   Get your API key by signing up at [Finnhub.io](https://finnhub.io/register)
+
+4. Start the development server:
+   ```
+   npm run dev
+   ```
+
+## Environment Configuration
+
+The app uses environment variables for configuration:
+
+- `VITE_FINNHUB_API_KEY`: Your Finnhub API key (required for real stock data)
+
+Without a valid API key, the app will display placeholder data or may not function correctly.
+
+## Technologies Used
+
+- React
+- TypeScript
+- Vite
+- Axios
+- Recharts
+- TradingView Charts
+- Tailwind CSS
+- shadcn/ui components
+
+## Project Structure
+
+- `src/components/`: React components
+- `src/hooks/`: Custom React hooks
+- `src/lib/`: Utility functions and API interfaces
+- `src/pages/`: Page components
+- `src/types/`: TypeScript type definitions
+
+## API Integration
+
+The app integrates with Finnhub API to fetch real-time stock data, historical prices, and company information. The integration is implemented in `src/lib/finnhub-api.ts`.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.

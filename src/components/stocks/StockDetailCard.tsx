@@ -1,10 +1,10 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BellPlus, Star, ArrowDown, ArrowUp, Briefcase, LineChart, ChevronRight, AlertTriangle } from "lucide-react";
 import AddToPortfolio from "./AddToPortfolio";
+import TradingViewChart from "./TradingViewChart";
 import { toast } from "sonner";
 
 interface Stock {
@@ -40,6 +40,9 @@ const StockDetailCard = ({
   onToggleWatchlist
 }: StockDetailCardProps) => {
   const [showAddToPortfolio, setShowAddToPortfolio] = useState(false);
+  const [miniChartLoaded, setMiniChartLoaded] = useState(false);
+  
+  const chartContainerId = `mini-chart-${stock.symbol.toLowerCase()}`;
   
   return (
     <div className="space-y-4">
@@ -48,12 +51,23 @@ const StockDetailCard = ({
           ${stock.price.toLocaleString()}
         </div>
         <div className="text-sm text-muted-foreground flex items-center">
-          ${stock.change} today
+          ${stock.change.toFixed(2)} today
           <span className={`ml-2 ${stock.changePercent >= 0 ? 'text-green-600' : 'text-red-600'} flex items-center`}>
             {stock.changePercent >= 0 ? <ArrowUp className="h-3 w-3 mr-0.5" /> : <ArrowDown className="h-3 w-3 mr-0.5" />}
             {Math.abs(stock.changePercent).toFixed(2)}%
           </span>
         </div>
+      </div>
+      
+      {/* Mini TradingView Chart */}
+      <div className="h-32 w-full border rounded-md overflow-hidden">
+        <TradingViewChart 
+          symbol={`NASDAQ:${stock.symbol}`}
+          container={chartContainerId}
+          height={128}
+          interval="60"
+          theme="light"
+        />
       </div>
       
       <Tabs defaultValue="overview">
@@ -148,7 +162,7 @@ const StockDetailCard = ({
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add {stock.symbol} to Portfolio</DialogTitle>
+              <DialogTitle>Add {stock.symbol} to Your Portfolio</DialogTitle>
             </DialogHeader>
             <AddToPortfolio 
               stock={stock} 
