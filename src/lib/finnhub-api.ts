@@ -5,7 +5,7 @@ const FINNHUB_API_URL = 'https://finnhub.io/api/v1';
 
 // Try to get API key from environment variables, otherwise use a placeholder
 // In production, you should always use environment variables
-const FINNHUB_API_KEY = import.meta.env.VITE_FINNHUB_API_KEY || 'd04flmhr01qspgm2njggd04flmhr01qspgm2njh0';
+const FINNHUB_API_KEY = import.meta.env.VITE_FINNHUB_API_KEY;
 
 // Log a warning if using the demo key
 if (FINNHUB_API_KEY === 'demo_finnhub_api_key') {

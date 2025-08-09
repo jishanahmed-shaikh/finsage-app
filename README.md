@@ -1,8 +1,51 @@
-# FinSage: Your AI-Powered Investment Portfolio Assistant
+<div align="center">
 
-![FinSage Logo](https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1920&q=80)
+# FinSage - AI Powered Financial Literacy & Portfolio Management
 
-## Inspiration
+<img src="./public/logo.png" alt="FinSage Logo" width="200" height="200" />
+
+[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.4.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.11-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![React Query](https://img.shields.io/badge/React_Query-5.56.2-FF4154?style=for-the-badge&logo=react-query&logoColor=white)](https://tanstack.com/query)
+[![React Router](https://img.shields.io/badge/React_Router-6.26.2-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://reactrouter.com/)
+
+[![Recharts](https://img.shields.io/badge/Recharts-2.12.7-8884D8?style=for-the-badge&logo=chart.js&logoColor=white)](https://recharts.org/)
+[![Radix UI](https://img.shields.io/badge/Radix_UI-Latest-161618?style=for-the-badge&logo=radix-ui&logoColor=white)](https://www.radix-ui.com/)
+[![Axios](https://img.shields.io/badge/Axios-1.8.4-5A29E4?style=for-the-badge&logo=axios&logoColor=white)](https://axios-http.com/)
+[![Finnhub](https://img.shields.io/badge/Finnhub_API-1.2.19-00D4AA?style=for-the-badge&logo=api&logoColor=white)](https://finnhub.io/)
+[![Zod](https://img.shields.io/badge/Zod-3.23.8-3E67B1?style=for-the-badge&logo=zod&logoColor=white)](https://zod.dev/)
+[![React Hook Form](https://img.shields.io/badge/React_Hook_Form-7.53.0-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)](https://react-hook-form.com/)
+
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)](https://github.com/jishanahmed-shaikh/finsage-app)
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge)](https://github.com/jishanahmed-shaikh/finsage-app)
+
+**🚀 Your AI-Powered Investment Portfolio Assistant**
+
+*Democratizing financial intelligence through cutting-edge AI technology and intuitive design*
+
+</div>
+
+## 📋 Table of Contents
+
+- [🎯 Inspiration](#-inspiration)
+- [✨ What it does](#-what-it-does)
+- [🛠️ How we built it](#️-how-we-built-it)
+- [🚧 Challenges we ran into](#-challenges-we-ran-into)
+- [🏆 Accomplishments that we're proud of](#-accomplishments-that-were-proud-of)
+- [📚 What we learned](#-what-we-learned)
+- [🔮 What's next for FinSage](#-whats-next-for-finsage)
+- [⚡ Quick Start](#-quick-start)
+- [🚀 Deployment](#-deployment)
+- [👥 Team](#-team)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [📄 License](#-license)
+
+---
+
+## 🎯 Inspiration
 
 FinSage was born from a recognition of the significant challenges many individuals face when managing their investments and financial decisions. We observed that:
 
@@ -12,7 +55,7 @@ FinSage was born from a recognition of the significant challenges many individua
 
 We envisioned a platform that could democratize financial intelligence by combining cutting-edge AI technology with intuitive design, making sophisticated portfolio management accessible to everyone - from beginners to seasoned investors.
 
-## What it does
+## ✨ What it does
 
 FinSage is a comprehensive fin-tech Oriented platform that promotes Financial Literacy, track investments, analyze stocks, and receive personalized AI guidance.
 Key features include:
@@ -53,7 +96,7 @@ Key features include:
 - Tax impact forecasting for investment decisions
 - Retirement planning and goal-setting features
 
-## How we built it
+## 🛠️ How we built it
 
 FinSage leverages a modern technology stack designed for performance, scalability, and user experience:
 
@@ -88,7 +131,7 @@ FinSage leverages a modern technology stack designed for performance, scalabilit
 - Implemented accessibility features following WCAG guidelines
 - Created intuitive navigation and information architecture
 
-## Challenges we ran into
+## 🚧 Challenges we ran into
 
 Building FinSage presented several significant challenges:
 
@@ -98,7 +141,7 @@ Building FinSage presented several significant challenges:
 4. **Responsive Design Implementation**: Ensuring a seamless experience across all device sizes presented layout and interaction challenges, especially for data-heavy visualizations.
 5. **User Authentication and Security**: Implementing robust security measures while maintaining a smooth user experience required careful architecture decisions.
 
-## Accomplishments that we're proud of
+## 🏆 Accomplishments that we're proud of
 
 1. **Intuitive AI Interface**: Our conversational AI goes beyond simple chatbot functionality to provide deeply personalized financial guidance that adapts to user needs.
 2. **Responsive Dashboard**: Created a fully responsive financial dashboard that maintains functionality across all device sizes without compromising on features.
@@ -106,7 +149,7 @@ Building FinSage presented several significant challenges:
 4. **Performance Optimization**: Achieved excellent performance metrics despite the data-intensive nature of financial applications, with interactive charts that remain responsive even on mobile devices.
 5. **Accessibility**: Built the platform with a strong focus on accessibility, ensuring that financial tools are available to everyone regardless of ability.
 
-## What we learned
+## 📚 What we learned
 
 Developing FinSage provided valuable insights and learning opportunities:
 
@@ -116,7 +159,7 @@ Developing FinSage provided valuable insights and learning opportunities:
 4. **Tailwind CSS Implementation**: We developed more sophisticated strategies for maintaining design consistency while leveraging Tailwind's utility-first approach.
 5. **Collaborative Development Workflows**: We improved our processes for collaborative development, finding better ways to integrate design and development workflows.
 
-## What's next for FinSage
+## 🔮 What's next for FinSage
 
 Our roadmap for FinSage includes several exciting features and improvements:
 
@@ -129,108 +172,169 @@ Our roadmap for FinSage includes several exciting features and improvements:
 7. **Personalized Learning Paths**: Creating individualized educational journeys based on user knowledge level, interests, and portfolio composition.
 8. **Complete, Robust & Scalable Backend Architecture**: Developing a Full-Fledged Backend Architecture for FinSage that can be scaled as per requirements.
 
-## Project Information for Setup
+## ⚡ Quick Start
 
-Requirements:
+### Prerequisites
 
-- Node.js & npm - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Node.js** (v18 or higher) - [Install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **npm** or **yarn** package manager
+- **Finnhub API Key** - [Get your free API key](https://finnhub.io/register)
 
-```sh
-# Step 1: Clone the Github Repo / Download the Code Base via Google Drive Base
-git clone https://github.com/jishanahmed-shaikh/finsage-app.git 
+### Installation
 
-or 
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jishanahmed-shaikh/finsage-app.git
+   cd finsage-app
+   ```
 
-Download the Zip File ("finsage.zip") from this Folder: (https://drive.google.com/drive/folders/1rPiIz7SaYzy3eC41aFhneTLAabtYXIHj?usp=drive_link)
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-# Step 2: Navigate to the project directory
-cd finSage-app
+3. **Environment Setup**
+   
+   Create a `.env.local` file in the root directory:
+   ```env
+   VITE_FINNHUB_API_KEY=your_finnhub_api_key_here
+   ```
+   
+   > 📝 **Note**: Get your API key by signing up at [Finnhub.io](https://finnhub.io/register)
 
-# Step 3: Install dependencies
-npm i
+4. **Start the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-# Step 4: Start the development server
-npm run dev
-```
+5. **Open your browser**
+   
+   Navigate to `http://localhost:8080` to see the application running!
 
-## Deployment
+## 🚀 Deployment
 
-You can deploy this project by using VERCEL.
+### Deploy with Vercel (Recommended)
 
-1. Create a Vercel Account (https://vercel.com/)
-2. Connect your Github Account to your Vercel Account
-3. Import the project from Github to be deployed on Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/jishanahmed-shaikh/finsage-app)
 
-## Team
+1. **Create a Vercel Account** at [vercel.com](https://vercel.com/)
+2. **Connect your GitHub Account** to Vercel
+3. **Import the project** from GitHub
+4. **Add Environment Variables** in Vercel dashboard:
+   - `VITE_FINNHUB_API_KEY`: Your Finnhub API key
+5. **Deploy** - Vercel will automatically build and deploy your app
+
+### Alternative Deployment Options
+
+- **Netlify**: Connect your GitHub repo and deploy
+- **GitHub Pages**: Use GitHub Actions for automated deployment
+- **Railway**: One-click deployment with database support
+
+## 👥 Team
 
 - **Jishanahmed AR Shaikh & Om S Bhojane**
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 - Thanks to all the users who provided valuable feedback during our testing phase
 - Special thanks to the financial experts who helped validate our educational content
 - Appreciation to the open source community for the amazing tools that made this project possible
 
-## IMPORTANT NOTE
+---
 
-- **We at FinSage are Still working on making it a Full-Stack Product by working on a Robust and Scalable Backend**
-- **FinSage has been integrated with the Finnhub API to provide real-time stock data**
-- **To use the app with real-time data, you'll need to set up your own Finnhub API key as described in the setup instructions below**
+## 🔧 Technical Details
 
-## Setup
+### 🏗️ Project Structure
 
-1. Clone this repository
-2. Install dependencies:
-   ```
-   npm install
-   ```
-3. Create a `.env.local` file in the root directory with your Finnhub API key:
-   ```
-   VITE_FINNHUB_API_KEY=your_finnhub_api_key
-   ```
-   
-   Get your API key by signing up at [Finnhub.io](https://finnhub.io/register)
+```
+finsage-app/
+├── public/
+│   ├── favicon.ico
+│   └── logo.png
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── hooks/         # Custom React hooks
+│   ├── lib/           # Utility functions & API interfaces
+│   ├── pages/         # Page components
+│   ├── types/         # TypeScript type definitions
+│   ├── App.tsx        # Main application component
+│   └── main.tsx       # Application entry point
+├── .env.local         # Environment variables
+└── package.json       # Dependencies and scripts
+```
 
-4. Start the development server:
-   ```
-   npm run dev
-   ```
+### 🌐 API Integration
 
-## Environment Configuration
+FinSage integrates with **Finnhub API** to provide:
+- Real-time stock prices and market data
+- Historical price charts and trends
+- Company financial information
+- Market news and insights
 
-The app uses environment variables for configuration:
+> 📍 **Implementation**: Check `src/lib/finnhub-api.ts` for API integration details
 
-- `VITE_FINNHUB_API_KEY`: Your Finnhub API key (required for real stock data)
+### 🎨 UI Components
 
-Without a valid API key, the app will display placeholder data or may not function correctly.
+Built with **shadcn/ui** and **Radix UI** for:
+- Accessible, keyboard-navigable interfaces
+- Consistent design system
+- Dark/light theme support
+- Responsive layouts across all devices
 
-## Technologies Used
+### 📊 Data Visualization
 
-- React
-- TypeScript
-- Vite
-- Axios
-- Recharts
-- TradingView Charts
-- Tailwind CSS
-- shadcn/ui components
+Powered by **Recharts** for:
+- Interactive financial charts
+- Portfolio performance graphs
+- Real-time data updates
+- Mobile-optimized visualizations
 
-## Project Structure
+---
 
-- `src/components/`: React components
-- `src/hooks/`: Custom React hooks
-- `src/lib/`: Utility functions and API interfaces
-- `src/pages/`: Page components
-- `src/types/`: TypeScript type definitions
+## ⚠️ Important Notes
 
-## API Integration
+> 🚧 **Development Status**: FinSage is actively being developed into a full-stack application with a robust and scalable backend architecture.
 
-The app integrates with Finnhub API to fetch real-time stock data, historical prices, and company information. The integration is implemented in `src/lib/finnhub-api.ts`.
+> 🔑 **API Key Required**: To access real-time stock data, you'll need a Finnhub API key. Without it, the app will display placeholder data.
 
-## Contributing
+> 📱 **Mobile Ready**: Fully responsive design optimized for desktop, tablet, and mobile devices.
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+---
 
-## License
+## 🤝 Contributing
 
-This project is licensed under the MIT License.
+We welcome contributions! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+### Development Guidelines
+
+- Follow TypeScript best practices
+- Use ESLint and Prettier for code formatting
+- Write meaningful commit messages
+- Test your changes thoroughly
+- Update documentation as needed
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the FinSage Team**
+
+[⭐ Star this repo](https://github.com/jishanahmed-shaikh/finsage-app) • [🐛 Report Bug](https://github.com/jishanahmed-shaikh/finsage-app/issues) • [💡 Request Feature](https://github.com/jishanahmed-shaikh/finsage-app/issues)
+
+</div>
