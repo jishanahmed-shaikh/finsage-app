@@ -11,11 +11,11 @@ import { useViewport } from "@/hooks/use-viewport";
 
 const Index = () => {
   const { isMobile } = useViewport();
-  
+
   // Preload animation classes
   useEffect(() => {
     document.body.classList.add('animate-fade-in');
-    
+
     return () => {
       document.body.classList.remove('animate-fade-in');
     };
@@ -24,7 +24,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
+
       {/* Main Content */}
       <main className="flex-grow">
         <Hero />
@@ -33,7 +33,7 @@ const Index = () => {
         <ChatInterface />
         <HowItWorks />
       </main>
-      
+
       <Footer />
     </div>
   );

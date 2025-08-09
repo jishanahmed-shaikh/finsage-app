@@ -1,6 +1,7 @@
 
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigation } from "@/hooks/use-navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -86,6 +87,9 @@ const recommendations = [
 ];
 
 const DashboardPage = () => {
+  // Use navigation hook to handle route changes properly
+  useNavigation();
+  
   const [amount, setAmount] = useState<string>("10000");
   const [rate, setRate] = useState<string>("8");
   const [years, setYears] = useState<string>("5");

@@ -1,9 +1,11 @@
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigation } from "@/hooks/use-navigation";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Menu, X } from "lucide-react";
+import { Menu, X, AlertCircle } from "lucide-react";
+import { groqChatService } from "@/lib/groq-api";
 
 interface ChatMessage {
   id: string;
@@ -20,10 +22,13 @@ interface ChatSession {
 }
 
 const ChatPage = () => {
+  // Use navigation hook to handle route changes properly
+  useNavigation();
+  
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "1",
-      content: "Hello! I'm your FinSage AI assistant. How can I help with your investment queries today?",
+      content: "Hello! I'm your FinSage AI assistant powered by advanced AI. I'm here to help you with investment strategies, portfolio management, stock analysis, and financial planning. What would you like to discuss today?",
       role: "assistant",
       timestamp: new Date()
     }
@@ -54,6 +59,7 @@ const ChatPage = () => {
   const [selectedSession, setSelectedSession] = useState<string>("current");
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [leftPaneVisible, setLeftPaneVisible] = useState(true);
   
@@ -64,16 +70,27 @@ const ChatPage = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Cleanup effect to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      // Clear any ongoing API calls when component unmounts
+      setIsTyping(false);
+      setError(null);
+    };
+  }, []);
   
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!inputValue.trim()) return;
     
+    const userMessageContent = inputValue.trim();
+    
     // Add user message
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
-      content: inputValue,
+      content: userMessageContent,
       role: "user",
       timestamp: new Date()
     };
@@ -81,38 +98,63 @@ const ChatPage = () => {
     setMessages(prev => [...prev, userMessage]);
     setInputValue("");
     setIsTyping(true);
+    setError(null);
     
-    // Simulate AI response
-    setTimeout(() => {
-      let response = "";
-      
-      // Simple pattern matching for demo purposes
-      if (inputValue.toLowerCase().includes("mutual fund") || inputValue.toLowerCase().includes("fund")) {
-        response = "Mutual funds are a great way to start investing. For beginners, I recommend index funds like Nifty 50 or low-cost diversified equity funds. Would you like specific fund recommendations?";
-      } else if (inputValue.toLowerCase().includes("stock") || inputValue.toLowerCase().includes("shares")) {
-        response = "For stock investing in India, beginners should consider blue-chip companies with strong fundamentals. Some examples include HDFC Bank, TCS, and Reliance Industries. Would you like to know more about analyzing stocks?";
-      } else if (inputValue.toLowerCase().includes("risk")) {
-        response = "Understanding your risk tolerance is crucial. Conservative investors might prefer debt funds and FDs, while those comfortable with higher risk might opt for mid-cap stocks or sectoral funds. How would you describe your risk tolerance?";
-      } else if (inputValue.toLowerCase().includes("tax") || inputValue.toLowerCase().includes("saving")) {
-        response = "For tax-efficient investing in India, consider ELSS funds (tax deduction under 80C), PPF, or tax-free bonds. NPS also offers additional tax benefits under section 80CCD(1B). Would you like me to explain any of these options?";
-      } else {
-        response = "That's a great question about investing. To provide the most helpful advice, could you tell me more about your financial goals, investment timeline, and risk tolerance?";
-      }
-      
+    try {
+      // Create a placeholder AI message that will be updated with streaming content
+      const aiMessageId = (Date.now() + 1).toString();
       const aiMessage: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        content: response,
+        id: aiMessageId,
+        content: "",
         role: "assistant",
         timestamp: new Date()
       };
       
       setMessages(prev => [...prev, aiMessage]);
+      
+      // Get streaming response from GROQ
+      const responseStream = await groqChatService.sendMessage(userMessageContent);
+      
+      for await (const chunk of responseStream) {
+        setMessages(prev => 
+          prev.map(msg => 
+            msg.id === aiMessageId 
+              ? { ...msg, content: chunk.content }
+              : msg
+          )
+        );
+        
+        if (chunk.isComplete) {
+          setIsTyping(false);
+          break;
+        }
+      }
+    } catch (error) {
+      console.error('Chat error:', error);
+      setError('Sorry, I encountered an error. Please try again.');
       setIsTyping(false);
-    }, 1500);
+      
+      // Remove the empty AI message if there was an error
+      setMessages(prev => prev.filter(msg => msg.content !== ""));
+    }
   };
 
   const toggleLeftPane = () => {
     setLeftPaneVisible(!leftPaneVisible);
+  };
+
+  const startNewChat = () => {
+    setMessages([
+      {
+        id: "1",
+        content: "Hello! I'm your FinSage AI assistant powered by advanced AI. I'm here to help you with investment strategies, portfolio management, stock analysis, and financial planning. What would you like to discuss today?",
+        role: "assistant",
+        timestamp: new Date()
+      }
+    ]);
+    groqChatService.clearHistory();
+    setError(null);
+    setSelectedSession("current");
   };
   
   return (
@@ -122,6 +164,7 @@ const ChatPage = () => {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-accent bg-clip-text text-transparent">FinSage</span>
+            <span className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded-full font-medium">AI Chat</span>
           </Link>
           
           <div className="flex items-center space-x-3">
@@ -163,7 +206,7 @@ const ChatPage = () => {
           <div className="p-4 border-b border-border flex justify-between items-center">
             <h2 className="font-semibold text-sm">Chat History</h2>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" className="text-xs h-7">New Chat</Button>
+              <Button variant="outline" size="sm" className="text-xs h-7" onClick={startNewChat}>New Chat</Button>
               <Button variant="ghost" size="sm" className="md:hidden h-7 w-7 p-0" onClick={toggleLeftPane}>
                 <X className="h-4 w-4" />
               </Button>
@@ -263,6 +306,25 @@ const ChatPage = () => {
                   </div>
                 </div>
               )}
+              
+              {error && (
+                <div className="flex justify-start">
+                  <div className="flex items-start space-x-3 max-w-[80%]">
+                    <div className="w-8 h-8 rounded-full bg-red-500 flex-shrink-0 flex items-center justify-center text-white text-sm">
+                      <AlertCircle className="h-4 w-4" />
+                    </div>
+                    <div className="rounded-xl p-3 bg-red-50 border border-red-200 rounded-tl-none">
+                      <p className="text-sm text-red-700">{error}</p>
+                      <button 
+                        onClick={() => setError(null)}
+                        className="text-xs text-red-600 hover:text-red-800 mt-1 underline"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div ref={messagesEndRef} />
             </div>
           </div>
@@ -275,10 +337,15 @@ const ChatPage = () => {
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  className="flex-1 border border-border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-100 bg-background"
-                  placeholder="Ask about investing, stocks, funds, tax saving..."
+                  disabled={isTyping}
+                  className="flex-1 border border-border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-100 bg-background disabled:opacity-50 disabled:cursor-not-allowed"
+                  placeholder={isTyping ? "AI is thinking..." : "Ask about investing, stocks, funds, tax saving..."}
                 />
-                <Button type="submit" className="rounded-full w-10 h-10 p-0 bg-primary-500 hover:bg-primary-600">
+                <Button 
+                  type="submit" 
+                  disabled={isTyping || !inputValue.trim()}
+                  className="rounded-full w-10 h-10 p-0 bg-primary-500 hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   <span className="sr-only">Send message</span>
                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 7.5H14M14 7.5L8 1.5M14 7.5L8 13.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

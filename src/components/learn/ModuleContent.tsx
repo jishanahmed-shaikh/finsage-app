@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -178,6 +178,196 @@ const moduleContents = {
         title: "The Tax and Legal Playbook",
         author: "Mark J. Kohler",
         description: "Strategies for tax-efficient wealth building"
+      }
+    ]
+  },
+  "module6": {
+    title: "Cryptocurrency Basics",
+    description: "Understanding digital assets and blockchain technology",
+    sections: [
+      {
+        title: "What is Cryptocurrency?",
+        content: "Cryptocurrency is a digital or virtual currency secured by cryptography, making it nearly impossible to counterfeit. Most cryptocurrencies are decentralized networks based on blockchain technology—a distributed ledger enforced by a network of computers.",
+        image: "₿"
+      },
+      {
+        title: "Blockchain Technology",
+        content: "Blockchain is a distributed database that maintains a continuously growing list of records, called blocks, linked and secured using cryptography. Each block contains a cryptographic hash of the previous block, a timestamp, and transaction data.",
+        image: "🔗"
+      },
+      {
+        title: "Major Cryptocurrencies",
+        content: "Bitcoin (BTC) was the first cryptocurrency, created in 2009. Other major cryptocurrencies include Ethereum (ETH), which enables smart contracts, Binance Coin (BNB), Cardano (ADA), and Solana (SOL). Each has unique features and use cases.",
+        image: "🪙"
+      },
+      {
+        title: "Risks and Considerations",
+        content: "Cryptocurrency investing carries high risks including extreme volatility, regulatory uncertainty, security concerns, and potential total loss. Only invest what you can afford to lose and understand the technology before investing.",
+        image: "⚠️"
+      }
+    ],
+    resources: [
+      {
+        title: "The Bitcoin Standard",
+        author: "Saifedean Ammous",
+        description: "Economic analysis of Bitcoin and its potential impact"
+      },
+      {
+        title: "Mastering Bitcoin",
+        author: "Andreas M. Antonopoulos",
+        description: "Technical guide to understanding Bitcoin and blockchain"
+      }
+    ]
+  },
+  "module7": {
+    title: "Real Estate Investment",
+    description: "Property investing, REITs, and real estate strategies",
+    sections: [
+      {
+        title: "Types of Real Estate Investment",
+        content: "Real estate investment includes direct property ownership (residential, commercial, industrial), Real Estate Investment Trusts (REITs), real estate crowdfunding platforms, and real estate partnerships. Each offers different levels of involvement and capital requirements.",
+        image: "🏠"
+      },
+      {
+        title: "REITs Explained",
+        content: "Real Estate Investment Trusts (REITs) are companies that own, operate, or finance income-generating real estate. They offer a way to invest in real estate without directly owning property, providing liquidity and diversification benefits.",
+        image: "🏢"
+      },
+      {
+        title: "Real Estate Analysis",
+        content: "Key metrics include cap rate (net operating income divided by property value), cash-on-cash return, gross rent multiplier, and debt-to-equity ratio. Location, market trends, and property condition are crucial factors in real estate investment success.",
+        image: "📊"
+      },
+      {
+        title: "Financing and Leverage",
+        content: "Real estate often involves leverage through mortgages, which can amplify both returns and risks. Understanding loan-to-value ratios, interest rates, and cash flow requirements is essential for successful real estate investing.",
+        image: "💰"
+      }
+    ],
+    resources: [
+      {
+        title: "The Millionaire Real Estate Investor",
+        author: "Gary Keller",
+        description: "Comprehensive guide to building wealth through real estate"
+      },
+      {
+        title: "The Book on Rental Property Investing",
+        author: "Brandon Turner",
+        description: "Practical strategies for rental property success"
+      }
+    ]
+  },
+  "module8": {
+    title: "Personal Finance Mastery",
+    description: "Budgeting, debt management, and financial planning",
+    sections: [
+      {
+        title: "Creating a Budget",
+        content: "A budget is a plan for how you'll spend your money each month. Start by tracking your income and expenses, then categorize spending into needs, wants, and savings. The 50/30/20 rule suggests 50% for needs, 30% for wants, and 20% for savings and debt repayment.",
+        image: "💳"
+      },
+      {
+        title: "Emergency Fund",
+        content: "An emergency fund is money set aside for unexpected expenses like job loss, medical bills, or major repairs. Aim for 3-6 months of living expenses in a high-yield savings account that's easily accessible but separate from your checking account.",
+        image: "🛡️"
+      },
+      {
+        title: "Debt Management",
+        content: "Two popular debt repayment strategies are the debt snowball (paying off smallest balances first) and debt avalanche (paying off highest interest rates first). The avalanche method saves more money, while the snowball provides psychological wins.",
+        image: "📉"
+      },
+      {
+        title: "Credit Score Optimization",
+        content: "Your credit score affects loan rates and approval. Key factors include payment history (35%), credit utilization (30%), length of credit history (15%), credit mix (10%), and new credit inquiries (10%). Pay bills on time and keep utilization below 30%.",
+        image: "📈"
+      }
+    ],
+    resources: [
+      {
+        title: "The Total Money Makeover",
+        author: "Dave Ramsey",
+        description: "Step-by-step plan for financial fitness"
+      },
+      {
+        title: "Your Money or Your Life",
+        author: "Vicki Robin",
+        description: "Transform your relationship with money and achieve financial independence"
+      }
+    ]
+  },
+  "module9": {
+    title: "Options & Derivatives",
+    description: "Advanced trading strategies and risk management",
+    sections: [
+      {
+        title: "What are Options?",
+        content: "Options are financial contracts that give the holder the right, but not the obligation, to buy (call option) or sell (put option) an underlying asset at a specific price within a certain timeframe. They can be used for speculation, hedging, or income generation.",
+        image: "⚡"
+      },
+      {
+        title: "Options Strategies",
+        content: "Basic strategies include buying calls (bullish), buying puts (bearish), covered calls (income generation), and protective puts (insurance). Advanced strategies include spreads, straddles, and iron condors, each with specific risk/reward profiles.",
+        image: "🎯"
+      },
+      {
+        title: "Understanding Greeks",
+        content: "The Greeks measure option price sensitivity: Delta (price sensitivity), Gamma (delta sensitivity), Theta (time decay), Vega (volatility sensitivity), and Rho (interest rate sensitivity). Understanding these helps manage option positions effectively.",
+        image: "🔢"
+      },
+      {
+        title: "Risk Management",
+        content: "Options can amplify both gains and losses. Never risk more than you can afford to lose, understand the maximum loss potential of each strategy, and consider using stop-losses. Paper trading is recommended before using real money.",
+        image: "⚖️"
+      }
+    ],
+    resources: [
+      {
+        title: "Options as a Strategic Investment",
+        author: "Lawrence G. McMillan",
+        description: "Comprehensive guide to options trading strategies"
+      },
+      {
+        title: "The Options Playbook",
+        author: "Brian Overby",
+        description: "Visual guide to options strategies and their applications"
+      }
+    ]
+  },
+  "module10": {
+    title: "Global Markets",
+    description: "International investing and currency considerations",
+    sections: [
+      {
+        title: "Why Invest Internationally?",
+        content: "International investing provides diversification beyond domestic markets, exposure to different economic cycles, access to emerging market growth, and currency diversification. It can reduce overall portfolio risk while potentially enhancing returns.",
+        image: "🌍"
+      },
+      {
+        title: "Ways to Invest Globally",
+        content: "Options include international mutual funds and ETFs, American Depositary Receipts (ADRs), direct foreign stock purchases, and global REITs. Each method has different costs, tax implications, and complexity levels.",
+        image: "🗺️"
+      },
+      {
+        title: "Currency Risk",
+        content: "When investing internationally, currency fluctuations can impact returns. A strong domestic currency can reduce foreign investment returns, while a weak domestic currency can enhance them. Currency-hedged funds can reduce this risk.",
+        image: "💱"
+      },
+      {
+        title: "Emerging vs. Developed Markets",
+        content: "Developed markets (US, Europe, Japan) offer stability and liquidity but potentially lower growth. Emerging markets (China, India, Brazil) offer higher growth potential but with increased volatility and political risk. Diversification across both is often recommended.",
+        image: "📊"
+      }
+    ],
+    resources: [
+      {
+        title: "The Global Investor",
+        author: "Pran Tiku",
+        description: "Guide to building a diversified international portfolio"
+      },
+      {
+        title: "International Investing",
+        author: "Roger G. Ibbotson",
+        description: "Academic approach to global portfolio construction"
       }
     ]
   }

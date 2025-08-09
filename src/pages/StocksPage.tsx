@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigation } from "@/hooks/use-navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -57,6 +58,9 @@ const comparisonData = [
 const defaultWatchlist = ["AAPL", "MSFT", "GOOGL"];
 
 const StocksPage = () => {
+  // Use navigation hook to handle route changes properly
+  useNavigation();
+  
   // Use our custom hooks for real-time stock data
   const { stocks: trendingStocks, loading, error } = useStockData();
   

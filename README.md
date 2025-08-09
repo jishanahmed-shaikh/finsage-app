@@ -2,7 +2,9 @@
 
 # FinSage - AI Powered Financial Literacy & Portfolio Management
 
-<img src="./public/logo.png" alt="FinSage Logo" width="200" height="200" />
+<img src="./public/logo.png" alt="FinSage Logo" width="300" height="350" />
+
+---
 
 [![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -18,15 +20,55 @@
 [![Zod](https://img.shields.io/badge/Zod-3.23.8-3E67B1?style=for-the-badge&logo=zod&logoColor=white)](https://zod.dev/)
 [![React Hook Form](https://img.shields.io/badge/React_Hook_Form-7.53.0-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)](https://react-hook-form.com/)
 
+[![Groq AI](https://img.shields.io/badge/Groq_AI-Latest-FF6B35?style=for-the-badge&logo=ai&logoColor=white)](https://groq.com/)
+[![TradingView](https://img.shields.io/badge/TradingView-Charts-131722?style=for-the-badge&logo=tradingview&logoColor=white)](https://www.tradingview.com/)
+[![Sonner](https://img.shields.io/badge/Sonner-Toasts-4F46E5?style=for-the-badge&logo=notification&logoColor=white)](https://sonner.emilkowal.ski/)
+
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)](https://github.com/jishanahmed-shaikh/finsage-app)
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge)](https://github.com/jishanahmed-shaikh/finsage-app)
+[![Version](https://img.shields.io/badge/Version-2.0.0-blue?style=for-the-badge)](https://github.com/jishanahmed-shaikh/finsage-app)
 
 **🚀 Your AI-Powered Investment Portfolio Assistant**
 
 *Democratizing financial intelligence through cutting-edge AI technology and intuitive design*
 
 </div>
+
+---
+
+## 🌟 Key Features
+
+### 📊 **Portfolio Management**
+- Interactive dashboard with real-time portfolio tracking
+- Asset allocation visualization and performance metrics
+- Risk assessment and portfolio health indicators
+- Returns calculator with tax impact forecasting
+
+### 🤖 **AI-Powered Chat Assistant**
+- Advanced conversational AI with streaming responses
+- Personalized financial advice and market insights
+- Context-aware guidance with conversation memory
+- Natural language explanations of complex concepts
+
+### 🎓 **Complete Financial Education Platform**
+- **10 Comprehensive Learning Modules** covering all aspects of finance
+- **8 Interactive Quiz Categories** with 150+ unique questions
+- **Gamified Learning** with points, achievements, and leaderboards
+- **Progressive Difficulty** from beginner to expert levels
+
+### 📈 **Advanced Stock Analysis**
+- Real-time stock data and interactive charts
+- Technical indicators and fundamental analysis
+- TradingView integration for professional charting
+- Stock comparison and watchlist functionality
+
+### 📱 **Mobile-First Design**
+- Fully responsive across all devices
+- Touch-optimized interactions
+- Progressive Web App capabilities
+- Offline-ready functionality
+
+---
 
 ## 📋 Table of Contents
 
@@ -74,20 +116,46 @@ Key features include:
 - Comparison tools for evaluating different investment options
 - <img width="992" alt="8" src="https://github.com/user-attachments/assets/f7bbda1e-61a1-4cef-938d-47b8e10090a0" />
 
-### AI Financial Assistant
+### 🤖 Advanced AI Financial Assistant
 
-- Natural language interface for financial queries
-- Personalized investment advice based on user's portfolio
-- Explanations of complex financial concepts in simple language
-- Market insights and trend analysis
+- **Conversational AI Interface**: Natural language processing for financial queries
+- **Personalized Investment Advice**: Tailored recommendations based on your profile
+- **Real-Time Market Insights**: AI-powered analysis of market trends and opportunities
+- **Educational Explanations**: Complex financial concepts explained in simple terms
+- **Streaming Responses**: Real-time AI responses with human-like conversation flow
+- **Context-Aware Guidance**: Remembers conversation history for better assistance
+- **Powered by Advanced AI**: Groq API integration for fast, intelligent responses
 - <img width="1275" alt="Chat" src="https://github.com/user-attachments/assets/def968f0-09a9-4566-947e-348cd2adc30a" />
 
-### Financial Learning Hub
+### 🎓 Comprehensive Financial Learning Hub
 
-- Educational resources tailored to knowledge level
-- Interactive tutorials and skill-building modules
-- Achievement tracking to gamify the learning experience
+- **10 Complete Learning Modules**: From Investment Fundamentals to Advanced Options Trading
+- **8 Interactive Quiz Categories**: 150+ unique questions with detailed explanations
+- **Gamified Learning Experience**: Points system, achievements, and leaderboards
+- **Progressive Difficulty Levels**: Beginner to Expert content paths
+- **Real-World Applications**: Practical financial knowledge you can use immediately
+- **Achievement System**: Unlock badges and track your financial literacy progress
 - <img width="1036" alt="learn1" src="https://github.com/user-attachments/assets/dd645868-5cf1-43e9-9acd-f69917cb8721" />
+
+#### 📚 Learning Modules Include:
+- Investment Fundamentals & Portfolio Management
+- Stock Market Mastery & Analysis Techniques  
+- Personal Finance & Budgeting Strategies
+- Retirement Planning & Tax-Smart Investing
+- Cryptocurrency & Digital Assets
+- Real Estate Investment & REITs
+- Options & Derivatives Trading
+- Global Markets & International Investing
+
+#### 🧠 Interactive Quiz System:
+- **Investment Fundamentals** (15 questions) - Master core investing principles
+- **Stock Market Mastery** (20 questions) - Advanced stock analysis and trading
+- **Personal Finance Pro** (18 questions) - Budgeting and debt management
+- **Retirement Planning Expert** (25 questions) - Long-term wealth building
+- **Tax Strategy Challenge** (22 questions) - Tax-efficient investing
+- **Crypto & Digital Assets** (16 questions) - Cryptocurrency fundamentals
+- **Real Estate Investment** (20 questions) - Property investing and REITs
+- **Risk Management Master** (14 questions) - Portfolio risk optimization
 
 
 ### Returns Calculator
@@ -143,11 +211,13 @@ Building FinSage presented several significant challenges:
 
 ## 🏆 Accomplishments that we're proud of
 
-1. **Intuitive AI Interface**: Our conversational AI goes beyond simple chatbot functionality to provide deeply personalized financial guidance that adapts to user needs.
-2. **Responsive Dashboard**: Created a fully responsive financial dashboard that maintains functionality across all device sizes without compromising on features.
-3. **Educational Integration**: Successfully integrated learning resources within the context of portfolio management, helping users improve their knowledge while making real decisions.
-4. **Performance Optimization**: Achieved excellent performance metrics despite the data-intensive nature of financial applications, with interactive charts that remain responsive even on mobile devices.
-5. **Accessibility**: Built the platform with a strong focus on accessibility, ensuring that financial tools are available to everyone regardless of ability.
+1. **Advanced AI Integration**: Implemented sophisticated conversational AI with streaming responses and context-aware financial guidance using Groq API.
+2. **Comprehensive Learning Platform**: Created a complete financial literacy hub with 10 detailed modules, 8 quiz categories, and 150+ unique questions with explanations.
+3. **Gamified Education**: Developed an engaging learning experience with achievements, points system, leaderboards, and progressive difficulty levels.
+4. **Real-Time Data Integration**: Successfully integrated multiple APIs (Finnhub, Groq) for live market data and AI-powered insights.
+5. **Responsive Dashboard**: Built a fully responsive financial dashboard that maintains functionality across all device sizes without compromising features.
+6. **Performance Optimization**: Achieved excellent performance metrics despite data-intensive visualizations and real-time AI processing.
+7. **Accessibility Focus**: Implemented WCAG guidelines ensuring financial tools are accessible to everyone regardless of ability.
 
 ## 📚 What we learned
 
@@ -200,9 +270,12 @@ Our roadmap for FinSage includes several exciting features and improvements:
    Create a `.env.local` file in the root directory:
    ```env
    VITE_FINNHUB_API_KEY=your_finnhub_api_key_here
+   VITE_GROQ_API_KEY=your_groq_api_key_here
    ```
    
-   > 📝 **Note**: Get your API key by signing up at [Finnhub.io](https://finnhub.io/register)
+   > 📝 **API Keys Required**:
+   > - **Finnhub API**: Get your free key at [Finnhub.io](https://finnhub.io/register) for real-time stock data
+   > - **Groq API**: Get your key at [Groq.com](https://groq.com/) for AI chat functionality
 
 4. **Start the development server**
    ```bash
@@ -226,6 +299,7 @@ Our roadmap for FinSage includes several exciting features and improvements:
 3. **Import the project** from GitHub
 4. **Add Environment Variables** in Vercel dashboard:
    - `VITE_FINNHUB_API_KEY`: Your Finnhub API key
+   - `VITE_GROQ_API_KEY`: Your Groq API key
 5. **Deploy** - Vercel will automatically build and deploy your app
 
 ### Alternative Deployment Options
@@ -269,13 +343,21 @@ finsage-app/
 
 ### 🌐 API Integration
 
-FinSage integrates with **Finnhub API** to provide:
+FinSage integrates with multiple APIs for comprehensive functionality:
+
+**Finnhub API** provides:
 - Real-time stock prices and market data
 - Historical price charts and trends
 - Company financial information
 - Market news and insights
 
-> 📍 **Implementation**: Check `src/lib/finnhub-api.ts` for API integration details
+**Groq AI API** powers:
+- Advanced conversational AI chat
+- Real-time streaming responses
+- Personalized financial advice
+- Natural language processing
+
+> 📍 **Implementation**: Check `src/lib/finnhub-api.ts` and `src/lib/groq-api.ts` for API integration details
 
 ### 🎨 UI Components
 
@@ -299,9 +381,14 @@ Powered by **Recharts** for:
 
 > 🚧 **Development Status**: FinSage is actively being developed into a full-stack application with a robust and scalable backend architecture.
 
-> 🔑 **API Key Required**: To access real-time stock data, you'll need a Finnhub API key. Without it, the app will display placeholder data.
+> 🔑 **API Keys Required**: 
+> - **Finnhub API**: Required for real-time stock data and market information
+> - **Groq API**: Required for AI chat functionality and personalized financial advice
+> - Without these keys, the app will display placeholder data or limited functionality
 
 > 📱 **Mobile Ready**: Fully responsive design optimized for desktop, tablet, and mobile devices.
+
+> 🎓 **Educational Focus**: Comprehensive financial literacy platform with 10 learning modules and 150+ quiz questions.
 
 ---
 
