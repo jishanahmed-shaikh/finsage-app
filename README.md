@@ -27,6 +27,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)](https://github.com/jishanahmed-shaikh/finsage-app)
 [![Version](https://img.shields.io/badge/Version-2.0.0-blue?style=for-the-badge)](https://github.com/jishanahmed-shaikh/finsage-app)
+[<img src="https://diploi.com/launch.svg" alt="launch with diploi badge">](https://diploi.com/launch/jishanahmed-shaikh/finsage-app)
 
 **🚀 Your AI-Powered Investment Portfolio Assistant**
 
@@ -290,7 +291,25 @@ Our roadmap for FinSage includes several exciting features and improvements:
 
 ## 🚀 Deployment
 
-### Deploy with Vercel (Recommended)
+### Option 1: Deploy with Diploi
+
+[<img src="https://diploi.com/launch-big.svg" alt="launch with diploi button">](https://diploi.com/launch/jishanahmed-shaikh/finsage-app)
+
+1. **Launch the project**
+
+   Click the launch button above to create a new Diploi deployment for FinSage.
+
+2. **Add environment variables**
+
+   Open the **Environment** tab in the sidebar and add `VITE_FINNHUB_API_KEY` and `VITE_GROQ_API_KEY`.
+
+3. **View the deployment**
+
+   Open the preview URL from your Diploi deployment page.
+
+For more information, visit [diploi.com](https://diploi.com/).
+
+### Option 2: Deploy with Vercel (Recommended)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/jishanahmed-shaikh/finsage-app)
 
